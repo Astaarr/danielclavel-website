@@ -1,26 +1,76 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --page-bg: #f4f9fa;
+  --page-fg: #0f172a;
+  --soft-grid: color-mix(in oklab, var(--page-fg) 6%, transparent);
+}
+
+[data-theme="dark"] {
+  --page-bg: #05080f;
+  --page-fg: #e5edf6;
+  --soft-grid: color-mix(in oklab, var(--page-fg) 10%, transparent);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--page-bg);
+  --color-foreground: var(--page-fg);
+  --font-sans: var(--font-manrope);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--page-bg);
+  color: var(--page-fg);
+  font-family: var(--font-manrope), sans-serif;
+  text-rendering: optimizeLegibility;
+  background-image:
+    linear-gradient(to right, var(--soft-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--soft-grid) 1px, transparent 1px),
+    radial-gradient(
+      circle at 12% 20%,
+      color-mix(in oklab, #7dd3fc 20%, transparent) 0,
+      transparent 26%
+    ),
+    radial-gradient(
+      circle at 82% 78%,
+      color-mix(in oklab, #34d399 18%, transparent) 0,
+      transparent 30%
+    );
+  background-size:
+    34px 34px,
+    34px 34px,
+    auto,
+    auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
