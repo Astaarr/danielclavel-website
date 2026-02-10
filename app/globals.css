@@ -3,15 +3,13 @@
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 :root {
-  --page-bg: #f4f9fa;
-  --page-fg: #0f172a;
-  --soft-grid: color-mix(in oklab, var(--page-fg) 6%, transparent);
+  --page-bg: #f7f6f4;
+  --page-fg: #1f1d1a;
 }
 
 [data-theme="dark"] {
-  --page-bg: #05080f;
-  --page-fg: #e5edf6;
-  --soft-grid: color-mix(in oklab, var(--page-fg) 10%, transparent);
+  --page-bg: #161412;
+  --page-fg: #f2efeb;
 }
 
 @theme inline {
@@ -35,23 +33,17 @@ body {
   font-family: var(--font-manrope), sans-serif;
   text-rendering: optimizeLegibility;
   background-image:
-    linear-gradient(to right, var(--soft-grid) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--soft-grid) 1px, transparent 1px),
     radial-gradient(
-      circle at 12% 20%,
-      color-mix(in oklab, #7dd3fc 20%, transparent) 0,
-      transparent 26%
+      circle at 10% 16%,
+      color-mix(in oklab, #e3cda5 28%, transparent) 0,
+      transparent 30%
     ),
     radial-gradient(
-      circle at 82% 78%,
-      color-mix(in oklab, #34d399 18%, transparent) 0,
-      transparent 30%
+      circle at 90% 84%,
+      color-mix(in oklab, #ddd8d1 24%, transparent) 0,
+      transparent 35%
     );
-  background-size:
-    34px 34px,
-    34px 34px,
-    auto,
-    auto;
+  background-size: auto, auto;
 }
 
 @media (prefers-reduced-motion: reduce) {

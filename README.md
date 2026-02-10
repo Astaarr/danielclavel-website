@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Daniel Clavel Landing
 
-## Getting Started
+Landing personal minimalista en Next.js, con foco en YouTube y carga automatica del ultimo video de cada canal.
 
-First, run the development server:
+## Desarrollo
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Configuracion de YouTube Data API v3
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1) API key
 
-## Learn More
+En `.env.local` define:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+YOUTUBE_API_KEY=tu_api_key_de_youtube
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Tambien se soporta `NEXT_PUBLIC_YT_API_KEY`, pero en este proyecto se recomienda `YOUTUBE_API_KEY` para mantener la clave solo en servidor.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Vercel (produccion/preview)
 
-## Deploy on Vercel
+Configura la misma variable en Vercel:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Project Settings -> Environment Variables
+- Name: `YOUTUBE_API_KEY`
+- Environments: `Production`, `Preview` (y opcionalmente `Development`)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Despues de guardar, haz redeploy para que la variable quede activa.
+
+### 2) Channel IDs
+
+Edita `src/config/youtube.ts` y reemplaza los placeholders de `channelId`:
+
+- `REPLACE_WITH_MAIN_CHANNEL_ID`
+- `REPLACE_WITH_VLOGS_CHANNEL_ID`
+- `REPLACE_WITH_GAMING_FINANZAS_CHANNEL_ID`
+
+Tambien puedes ajustar `channelUrl` y `label` para cada canal.
+
+### 3) Fallback manual (anti cuota/errores)
+
+En `src/config/youtube.ts`, cada canal tiene `manualFallback`.
+
+- `channelName`
+- `channelThumbnail` (opcional)
+- `latestVideo.title`
+- `latestVideo.thumbnail` (opcional)
+- `latestVideo.url`
+
+Si la API falla (quota diaria, key invalida, error temporal), la app usa automaticamente esos datos locales para que la landing no se rompa.
+
+## Arquitectura YouTube
+
+- `src/config/youtube.ts`: configuracion central de canales y TTL de cache.
+- `src/lib/youtube-api.ts`: helper/server service para llamar a YouTube API con manejo de errores.
+- `app/api/youtube/channels/route.ts`: route handler en servidor para ocultar la API key al cliente.
+- `src/components/youtube-section.tsx`: UI de la seccion YouTube con estados `loading`, `error`, `empty` y `ready`.
+
+## Cache y quota
+
+- Cache en servidor (memoria) y cliente (`localStorage`) con TTL de 15 minutos.
+- Esto reduce llamadas repetidas y ayuda a conservar quota.
+- Cada refresco fuera del TTL vuelve a consultar datos.
+- El costo puede variar por endpoint, por lo que conviene mantener el TTL y evitar recargas innecesarias durante pruebas.
+
+## Restricciones recomendadas para la API key
+
+- Como la clave se usa en servidor (route handler), no es obligatorio restringir por dominio/referrer.
+- Recomendado: restringir por API a `YouTube Data API v3`.
+- Si aplicas restricciones muy estrictas y falla en Vercel, revisa en `api/youtube/channels` el mensaje de error y ajusta las restricciones.

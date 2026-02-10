@@ -14,7 +14,7 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={toggleTheme}
-      className="group inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-300/70 bg-white/80 text-neutral-700 shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:bg-white dark:border-neutral-700 dark:bg-neutral-900/75 dark:text-neutral-200 dark:hover:bg-neutral-900"
+      className="group inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-300/70 bg-white/80 text-neutral-700 shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--page-bg)] dark:border-neutral-700 dark:bg-neutral-900/75 dark:text-neutral-200 dark:hover:bg-neutral-900"
       aria-label="Cambiar tema"
       title="Cambiar tema"
     >

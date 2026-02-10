@@ -20,7 +20,7 @@ const variantClasses: Record<LinkVariant, string> = {
   glass:
     "border border-white/60 bg-white/55 text-neutral-900 shadow-[0_8px_20px_-16px_rgba(0,0,0,0.65)] backdrop-blur-xl hover:bg-white/75 dark:border-neutral-700/70 dark:bg-neutral-900/55 dark:text-neutral-100 dark:hover:bg-neutral-900/75",
   gradient:
-    "border border-sky-300/60 bg-linear-to-r from-sky-200/80 via-cyan-100 to-emerald-100 text-neutral-900 shadow-[0_8px_22px_-14px_rgba(2,132,199,0.5)] hover:from-sky-200 hover:to-emerald-100 dark:border-sky-600/50 dark:from-sky-900/50 dark:via-cyan-900/35 dark:to-emerald-900/35 dark:text-neutral-100",
+    "border border-amber-300/60 bg-linear-to-r from-amber-100/85 via-stone-100 to-emerald-100/70 text-neutral-900 shadow-[0_8px_22px_-14px_rgba(120,88,43,0.38)] hover:from-amber-100 hover:to-emerald-100/80 dark:border-amber-700/50 dark:from-amber-900/30 dark:via-stone-900/40 dark:to-emerald-900/30 dark:text-neutral-100",
 };
 
 export function LinkButton({
@@ -50,7 +50,7 @@ export function LinkButton({
     <button
       type="button"
       onClick={onClick}
-      className={`group w-full rounded-2xl px-4 py-4 text-left transition duration-200 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--page-bg)] ${variantClasses[variant]}`}
+      className={`group w-full rounded-2xl px-4 py-4 text-left transition duration-200 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--page-bg)] ${variantClasses[variant]}`}
       aria-label={description ? `${title}: ${description}` : title}
     >
       <span className="flex items-center gap-3">

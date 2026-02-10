@@ -38,6 +38,15 @@ export function Icon({ name, className }: IconProps) {
           />
         </svg>
       );
+    case "soundcloud":
+      return (
+        <svg viewBox="0 0 24 24" aria-hidden="true" className={cls}>
+          <path
+            fill="currentColor"
+            d="M10 9.2a3.5 3.5 0 0 1 6.6 1.6v.2a2.8 2.8 0 1 1 1.3 5.2H6.5a2.5 2.5 0 0 1 0-5h.7a3.5 3.5 0 0 1 2.8-2m-5.9 2.5h1v4.5h-1zm-2 1h1v3.5h-1zm4.1-2.2h1v4.9h-1zm2.1-2h1v6.9h-1zm2.1-.3h1v7.2h-1z"
+          />
+        </svg>
+      );
     case "twitch":
       return (
         <svg viewBox="0 0 24 24" aria-hidden="true" className={cls}>
