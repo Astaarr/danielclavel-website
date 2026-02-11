@@ -22,11 +22,11 @@ export const youtubeChannels: YoutubeChannelConfig[] = [
     channelUrl: "https://www.youtube.com/channel/UCH_AjFTiZLgM7bhKIDIQ8qA",
     manualFallback: {
       channelName: "Daniel Clavel",
-      channelThumbnail: null,
+      channelThumbnail: "/youtube/profileyt1.png",
       latestVideo: {
-        title: "Actualiza este titulo manualmente",
-        thumbnail: null,
-        url: "https://www.youtube.com/watch?v=REPLACE_WITH_MAIN_VIDEO_ID",
+        title: "La dura verdad: te vas a morir",
+        thumbnail: "/youtube/miniaturaYtWeb.jpg",
+        url: "https://www.youtube.com/watch?v=orU5sE3MCiU",
       },
     },
   },
@@ -37,11 +37,11 @@ export const youtubeChannels: YoutubeChannelConfig[] = [
     channelUrl: "https://www.youtube.com/channel/UCJ13cUsvAcCYzc0vzh-N2lg",
     manualFallback: {
       channelName: "Daniel Clavel Vlogs",
-      channelThumbnail: null,
+      channelThumbnail: "/youtube/profileyt2.jpg",
       latestVideo: {
-        title: "Actualiza este titulo manualmente",
+        title: "Dentro de muy poco primer video del canal",
         thumbnail: null,
-        url: "https://www.youtube.com/watch?v=REPLACE_WITH_VLOGS_VIDEO_ID",
+        url: "https://www.youtube.com/channel/UCJ13cUsvAcCYzc0vzh-N2lg",
       },
     },
   },
@@ -51,12 +51,12 @@ export const youtubeChannels: YoutubeChannelConfig[] = [
     channelId: "UCthV-Ldkf1psq_zEsYWoxXA",
     channelUrl: "https://www.youtube.com/channel/UCthV-Ldkf1psq_zEsYWoxXA",
     manualFallback: {
-      channelName: "Daniel Clavel Gaming/Finanzas",
-      channelThumbnail: null,
+      channelName: "CLAVEL UNFILTERED",
+      channelThumbnail: "/youtube/profileyt3.jpg",
       latestVideo: {
-        title: "Actualiza este titulo manualmente",
+        title: "Dentro de muy poco primer video del canal",
         thumbnail: null,
-        url: "https://www.youtube.com/watch?v=REPLACE_WITH_GAMING_VIDEO_ID",
+        url: "https://www.youtube.com/channel/UCthV-Ldkf1psq_zEsYWoxXA",
       },
     },
   },

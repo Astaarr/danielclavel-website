@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { profileConfig } from "@/src/config/profile";
 import "./globals.css";
 
@@ -15,7 +16,9 @@ const title = seo?.title ?? `${profileConfig.profile.name} | Bio page`;
 const description =
   seo?.description ??
   `${profileConfig.profile.name} - enlaces y redes oficiales en un solo lugar.`;
-const ogImage = seo?.ogImage ?? "/avatar.svg";
+const siteName = seo?.siteName ?? profileConfig.profile.name;
+const ogUrl = seo?.siteUrl ?? undefined;
+const ogImage = seo?.ogImage ?? "/avatar.png";
 
 export const metadata: Metadata = {
   metadataBase,
@@ -25,6 +28,8 @@ export const metadata: Metadata = {
     title,
     description,
     type: "website",
+    siteName,
+    url: ogUrl,
     images: [ogImage],
     locale: "es_ES",
   },
@@ -35,7 +40,7 @@ export const metadata: Metadata = {
     images: [ogImage],
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: "/avatar.png",
   },
 };
 
@@ -63,6 +68,7 @@ export default function RootLayout({
           }}
         />
         {children}
+        <Analytics />
       </body>
     </html>
   );

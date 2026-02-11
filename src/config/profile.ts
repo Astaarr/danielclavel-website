@@ -31,6 +31,7 @@ export type ProfileConfig = {
   seo?: {
     title?: string;
     description?: string;
+    siteName?: string;
     siteUrl?: string;
     ogImage?: string;
   };
@@ -45,19 +46,15 @@ export const profileConfig: ProfileConfig = {
   },
   youtubeSectionTitle: "YouTube",
   socials: [
-    { title: "Instagram", url: "https://instagram.com", icon: "instagram" },
-    { title: "TikTok", url: "https://tiktok.com", icon: "tiktok" },
-    {
-      title: "SoundCloud",
-      url: "https://soundcloud.com",
-      icon: "soundcloud",
-    },
+    { title: "Instagram", url: "https://www.instagram.com/danii_clavel", icon: "instagram" },
+    { title: "TikTok", url: "https://www.tiktok.com/@danii_clavel", icon: "tiktok" },
+    { title: "SoundCloud", url: "https://soundcloud.com/danii_clavel", icon: "soundcloud", },
   ],
   seo: {
     title: "Daniel Clavel | Canales oficiales",
-    description:
-      "Canales oficiales de YouTube y redes principales en una landing minimalista.",
-    siteUrl: "https://example.com",
-    ogImage: "/avatar.svg",
+    description: "Canales oficiales de YouTube y redes principales.",
+    siteName: "Daniel Clavel",
+    siteUrl: "https://danielclavel.com",
+    ogImage: "/avatar.png",
   },
 };

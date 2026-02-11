@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import type { MouseEvent } from "react";
 import Image from "next/image";
 import { youtubeChannels, YOUTUBE_CACHE_TTL_MS } from "@/src/config/youtube";
 
@@ -29,6 +30,134 @@ type CachedYoutubeResponse = {
 };
 
 const CACHE_KEY = "yt-section-cache-v1";
+
+function isMobileDevice(): boolean {
+  if (typeof navigator === "undefined") {
+    return false;
+  }
+
+  return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+}
+
+function toYoutubeAppUrl(webUrl: string): string | null {
+  try {
+    const url = new URL(webUrl);
+
+    if (!url.hostname.includes("youtube.com") && !url.hostname.includes("youtu.be")) {
+      return null;
+    }
+
+    if (url.hostname.includes("youtu.be")) {
+      const videoId = url.pathname.replace("/", "").trim();
+      return videoId ? `youtube://watch?v=${videoId}` : null;
+    }
+
+    const videoId = url.searchParams.get("v");
+
+    if (videoId) {
+      return `youtube://watch?v=${videoId}`;
+    }
+
+    const channelMatch = url.pathname.match(/^\/channel\/([^/]+)/i);
+
+    if (channelMatch?.[1]) {
+      return `youtube://channel/${channelMatch[1]}`;
+    }
+
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+function normalizeImageSrc(src: string | null): string | null {
+  if (!src) {
+    return null;
+  }
+
+  const value = src.trim();
+
+  if (!value) {
+    return null;
+  }
+
+  if (value.startsWith("/")) {
+    return value;
+  }
+
+  if (value.startsWith("//")) {
+    return `https:${value}`;
+  }
+
+  try {
+    const parsed = new URL(value);
+
+    if (parsed.protocol === "http:" || parsed.protocol === "https:") {
+      return value;
+    }
+
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+function openYoutubeSmart(event: MouseEvent<HTMLAnchorElement>, webUrl: string) {
+  if (!isMobileDevice()) {
+    return;
+  }
+
+  const appUrl = toYoutubeAppUrl(webUrl);
+
+  if (!appUrl) {
+    return;
+  }
+
+  event.preventDefault();
+
+  const startedAt = Date.now();
+  window.location.href = appUrl;
+
+  window.setTimeout(() => {
+    if (Date.now() - startedAt < 1900) {
+      window.location.href = webUrl;
+    }
+  }, 1100);
+}
+
+function LatestVideoCard({
+  channelName,
+  title,
+  thumbnail,
+  url,
+}: {
+  channelName: string;
+  title: string;
+  thumbnail: string | null;
+  url: string;
+}) {
+  const thumbnailSrc = normalizeImageSrc(thumbnail);
+
+  return (
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={(event) => openYoutubeSmart(event, url)}
+      className="mt-4 grid grid-cols-[104px_1fr] gap-3 rounded-xl border border-neutral-200/90 bg-neutral-50/70 p-2 transition hover:bg-neutral-100/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--page-bg)] dark:border-neutral-800 dark:bg-neutral-900/70 dark:hover:bg-neutral-900"
+      aria-label={`Ver ultimo video de ${channelName}: ${title}`}
+    >
+      <span className="relative aspect-video overflow-hidden rounded-lg bg-neutral-200 dark:bg-neutral-800">
+        {thumbnailSrc ? (
+          <Image src={thumbnailSrc} alt={title} fill sizes="104px" className="object-cover" />
+        ) : null}
+      </span>
+      <span className="self-center text-sm font-medium leading-snug text-neutral-800 dark:text-neutral-100">
+        {title}
+      </span>
+    </a>
+  );
+}
 
 function readCache(): ChannelFromApi[] | null {
   try {
@@ -133,7 +262,10 @@ export function YouTubeSection({ title }: { title: string }) {
 
       {status === "ready" ? (
         <div className="grid gap-3">
-          {channels.map((channel) => (
+          {channels.map((channel) => {
+            const channelThumbnailSrc = normalizeImageSrc(channel.channelThumbnail);
+
+            return (
             <article
               key={channel.key}
               className="rounded-2xl border border-neutral-200/90 bg-white p-4 shadow-[0_10px_30px_-22px_rgba(0,0,0,0.6)] transition hover:-translate-y-0.5 dark:border-neutral-800 dark:bg-neutral-950"
@@ -142,13 +274,14 @@ export function YouTubeSection({ title }: { title: string }) {
                 href={channel.channelUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={(event) => openYoutubeSmart(event, channel.channelUrl)}
                 className="group inline-flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--page-bg)]"
                 aria-label={`Abrir ${channel.label} en YouTube`}
               >
                 <span className="relative h-12 w-12 overflow-hidden rounded-full border border-neutral-200 bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-800">
-                  {channel.channelThumbnail ? (
+                  {channelThumbnailSrc ? (
                     <Image
-                      src={channel.channelThumbnail}
+                      src={channelThumbnailSrc}
                       alt={channel.channelName}
                       fill
                       sizes="48px"
@@ -166,35 +299,20 @@ export function YouTubeSection({ title }: { title: string }) {
               </a>
 
               {channel.latestVideo ? (
-                <a
-                  href={channel.latestVideo.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-4 grid grid-cols-[104px_1fr] gap-3 rounded-xl border border-neutral-200/90 bg-neutral-50/70 p-2 transition hover:bg-neutral-100/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--page-bg)] dark:border-neutral-800 dark:bg-neutral-900/70 dark:hover:bg-neutral-900"
-                  aria-label={`Ver ultimo video de ${channel.channelName}: ${channel.latestVideo.title}`}
-                >
-                  <span className="relative aspect-video overflow-hidden rounded-lg bg-neutral-200 dark:bg-neutral-800">
-                    {channel.latestVideo.thumbnail ? (
-                      <Image
-                        src={channel.latestVideo.thumbnail}
-                        alt={channel.latestVideo.title}
-                        fill
-                        sizes="104px"
-                        className="object-cover"
-                      />
-                    ) : null}
-                  </span>
-                  <span className="self-center text-sm font-medium leading-snug text-neutral-800 dark:text-neutral-100">
-                    {channel.latestVideo.title}
-                  </span>
-                </a>
+                <LatestVideoCard
+                  channelName={channel.channelName}
+                  title={channel.latestVideo.title}
+                  thumbnail={channel.latestVideo.thumbnail}
+                  url={channel.latestVideo.url}
+                />
               ) : (
                 <p className="mt-3 text-sm text-neutral-500 dark:text-neutral-400">
                   Ultimo video no disponible.
                 </p>
               )}
             </article>
-          ))}
+            );
+          })}
         </div>
       ) : null}
     </section>
