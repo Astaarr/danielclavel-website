@@ -18,7 +18,7 @@ const description =
   `${profileConfig.profile.name} - enlaces y redes oficiales en un solo lugar.`;
 const siteName = seo?.siteName ?? profileConfig.profile.name;
 const ogUrl = seo?.siteUrl ?? undefined;
-const ogImage = seo?.ogImage ?? "/avatar.png";
+const ogImage = seo?.ogImage ?? "/avatar-2026.png";
 
 export const metadata: Metadata = {
   metadataBase,
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     images: [ogImage],
   },
   icons: {
-    icon: "/avatar.png",
+    icon: "/avatar-2026.png",
   },
 };
 

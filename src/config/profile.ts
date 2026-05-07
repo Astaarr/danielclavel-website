@@ -41,7 +41,7 @@ export const profileConfig: ProfileConfig = {
   profile: {
     name: "Daniel Clavel",
     tagline: "",
-    avatarUrl: "/avatar.png",
+    avatarUrl: "/avatar-2026.png",
     contactEmail: "daniel.clavelvega@gmail.com",
   },
   youtubeSectionTitle: "Destacados",
@@ -56,6 +56,6 @@ export const profileConfig: ProfileConfig = {
     description: "Canales oficiales de YouTube y redes principales.",
     siteName: "Daniel Clavel",
     siteUrl: "https://danielclavel.com",
-    ogImage: "/avatar.png",
+    ogImage: "/avatar-2026.png",
   },
 };

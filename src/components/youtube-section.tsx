@@ -296,8 +296,8 @@ export function YouTubeSection() {
         <FeaturedCard
           title="Asesorias 1:1"
            description="Rellena el Formulario para analizar tu caso y empezar a trabajar juntos para conseguir tu mejor version"
-          href="/asesorias"
-          image="/avatar.png"
+          href="https://forms.gle/LBuzjmRJ7cKpkzqH7"
+          image="/asesorias-avatar.png"
         />
       </div>
 

@@ -17,14 +17,14 @@ export default function Home() {
       <div className="mx-auto w-full max-w-[42rem] animate-[fadeUp_560ms_ease-out]">
         <header className="mx-auto max-w-[34rem] rounded-3xl border border-neutral-200/85 bg-white/85 p-5 shadow-[0_14px_36px_-26px_rgba(0,0,0,0.6)] backdrop-blur-xl dark:border-neutral-800 dark:bg-neutral-950/75 sm:p-6">
           <div className="flex flex-col items-center text-center">
-            <div className="relative h-24 w-24 overflow-hidden rounded-full border border-white/80 ring-4 ring-neutral-100 dark:border-neutral-800 dark:ring-neutral-900/80">
+            <div className="relative h-32 w-32 overflow-hidden rounded-full border border-white/80 ring-4 ring-neutral-100 dark:border-neutral-800 dark:ring-neutral-900/80">
               <Image
                 src={profile.avatarUrl}
                 alt={profile.name}
                 fill
                 className="object-cover"
                 priority
-                sizes="96px"
+                sizes="128px"
               />
             </div>
 
