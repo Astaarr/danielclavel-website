@@ -50,23 +50,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" suppressHydrationWarning>
+    <html lang="es" data-theme="dark">
       <body className={`${manrope.variable} antialiased`}>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(() => {
-              try {
-                const saved = localStorage.getItem('bio-theme');
-                const theme = saved === 'dark' || saved === 'light'
-                  ? saved
-                  : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-                document.documentElement.dataset.theme = theme;
-              } catch {
-                document.documentElement.dataset.theme = 'light';
-              }
-            })();`,
-          }}
-        />
         {children}
         <Analytics />
       </body>

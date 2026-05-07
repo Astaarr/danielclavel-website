@@ -40,13 +40,14 @@ export type ProfileConfig = {
 export const profileConfig: ProfileConfig = {
   profile: {
     name: "Daniel Clavel",
-    tagline: "Motivacion, Fitness y Finanzas.",
+    tagline: "",
     avatarUrl: "/avatar.png",
     contactEmail: "daniel.clavelvega@gmail.com",
   },
-  youtubeSectionTitle: "YouTube",
+  youtubeSectionTitle: "Destacados",
   socials: [
     { title: "Instagram", url: "https://www.instagram.com/danii_clavel", icon: "instagram" },
+    { title: "YouTube", url: "https://www.youtube.com/channel/UCH_AjFTiZLgM7bhKIDIQ8qA", icon: "youtube" },
     { title: "TikTok", url: "https://www.tiktok.com/@danii_clavel", icon: "tiktok" },
     { title: "SoundCloud", url: "https://soundcloud.com/danii_clavel", icon: "soundcloud", },
   ],

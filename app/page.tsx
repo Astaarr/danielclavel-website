@@ -1,11 +1,10 @@
 import Image from "next/image";
 import { profileConfig } from "@/src/config/profile";
 import { Icon } from "@/src/components/icons";
-import { ThemeToggle } from "@/src/components/theme-toggle";
 import { YouTubeSection } from "@/src/components/youtube-section";
 
 export default function Home() {
-  const { profile, socials, youtubeSectionTitle } = profileConfig;
+  const { profile, socials } = profileConfig;
 
   return (
     <main className="relative min-h-screen overflow-hidden px-4 py-8 sm:px-6 sm:py-10">
@@ -16,11 +15,7 @@ export default function Home() {
       </div>
 
       <div className="mx-auto w-full max-w-[42rem] animate-[fadeUp_560ms_ease-out]">
-        <header className="rounded-3xl border border-neutral-200/85 bg-white/85 p-6 shadow-[0_14px_36px_-26px_rgba(0,0,0,0.6)] backdrop-blur-xl dark:border-neutral-800 dark:bg-neutral-950/75 sm:p-8">
-          <div className="mb-6 flex justify-end">
-            <ThemeToggle />
-          </div>
-
+        <header className="mx-auto max-w-[34rem] rounded-3xl border border-neutral-200/85 bg-white/85 p-5 shadow-[0_14px_36px_-26px_rgba(0,0,0,0.6)] backdrop-blur-xl dark:border-neutral-800 dark:bg-neutral-950/75 sm:p-6">
           <div className="flex flex-col items-center text-center">
             <div className="relative h-24 w-24 overflow-hidden rounded-full border border-white/80 ring-4 ring-neutral-100 dark:border-neutral-800 dark:ring-neutral-900/80">
               <Image
@@ -36,9 +31,11 @@ export default function Home() {
             <h1 className="mt-4 text-2xl font-extrabold tracking-tight text-balance text-neutral-900 dark:text-neutral-50 sm:text-3xl">
               {profile.name}
             </h1>
-            <p className="mt-2 max-w-md text-sm leading-relaxed text-neutral-600 dark:text-neutral-300 sm:text-base">
-              {profile.tagline}
-            </p>
+            {profile.tagline ? (
+              <p className="mt-2 max-w-md text-sm leading-relaxed text-neutral-600 dark:text-neutral-300 sm:text-base">
+                {profile.tagline}
+              </p>
+            ) : null}
             {profile.contactEmail ? (
               <a
                 href={`mailto:${profile.contactEmail}`}
@@ -65,7 +62,7 @@ export default function Home() {
           </div>
         </header>
 
-        <YouTubeSection title={youtubeSectionTitle} />
+        <YouTubeSection />
       </div>
     </main>
   );
