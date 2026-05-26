@@ -292,14 +292,16 @@ export function YouTubeSection() {
 
   return (
     <section id="youtube" aria-label="Bloques principales" className="mt-8">
+      {/* TODO: Reactivar bloque de asesorias cuando vuelva a estar disponible.
       <div className="grid gap-6">
         <FeaturedCard
           title="Asesorias 1:1"
-           description="Rellena el Formulario para analizar tu caso y empezar a trabajar juntos para conseguir tu mejor version"
+          description="Rellena el Formulario para analizar tu caso y empezar a trabajar juntos para conseguir tu mejor version"
           href="https://forms.gle/LBuzjmRJ7cKpkzqH7"
           image="/asesorias-avatar.png"
         />
       </div>
+      */}
 
       {status === "loading" ? (
         <div
