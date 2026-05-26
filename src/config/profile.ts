@@ -46,7 +46,7 @@ export const profileConfig: ProfileConfig = {
   },
   youtubeSectionTitle: "Destacados",
   socials: [
-    { title: "Instagram", url: "https://www.instagram.com/daniel.clavel/?hl=es", icon: "instagram" },
+    { title: "Instagram", url: "https://www.instagram.com/daniel.clavel", icon: "instagram" },
     { title: "YouTube", url: "https://www.youtube.com/channel/UCH_AjFTiZLgM7bhKIDIQ8qA", icon: "youtube" },
     { title: "TikTok", url: "https://www.tiktok.com/@daniel_clavel", icon: "tiktok" },
     { title: "SoundCloud", url: "https://soundcloud.com/danii_clavel", icon: "soundcloud", },
